@@ -3,78 +3,54 @@ import Swiper from '../../../assets/js/utils/swiper.js'
 import '../../../assets/js/utils/swiper.css'
 import '../../../assets/css/home/serve/detail.css'
 import Header from '../../../components/header/header'
-import  BScroll  from 'better-scroll'
-// import axios from 'axios'
 import datas from './detail.json'
-import { useLayoutEffect } from 'react';
 import { useRef } from 'react';
-// import './mockjs'
+let standardsData = [
+  {title:'油烟机免拆洗',
+   price:'￥149/台'},
+  {title:'油烟机拆洗',
+   price:'￥180/台'},
+  {title:'油烟机+灶台拆洗',
+   price:'￥220/台'},
+]
 function Detail() {
+  // 是否选择伪类
   let [isSelected,setSelected] = useState(1)
+  // 三个锚链接
+  let goodsBegin = useRef(null)
+  let goodsDetail = useRef(null)
+  let goodsRecommend = useRef(null)
 
-  let swiper = useRef(null)
-  
-  // let [data,setData] = useState([]);
-
-  // let getData=(url)=>{
-  //   url = url ? url : 'all'
-  //   axios.get('/api/msg/'+url).then(res=>{
-  //     // console.log(res.data);
-  //    setData(
-  //       res.data.data
-  //     )
-  //   })
-  // }
+  // swiper 必备
   useEffect(()=>{
-    console.log(swiper)
-  
-    
-    console.log(swiper.current.offsetTop)
-    handlescroll()
-  })
-
-  const handlescroll = () =>{
-    swiper.current.onscroll = () => {
-      console.log(swiper.current.offsetTop)
-    }
-  }
-  useEffect(()=>{
-    // getData('all')
-    
-    new Swiper('.swiper-container', {
+   let s =  new Swiper('.swiper-container', {
       autoplay:1000,
       pagination: '.swiper-pagination',
       loop : true,
-      
     })
-  },[])
-
-  useEffect(()=>{
-    let scroll = new BScroll('.toscroll',{
-      scrollY:false,
-      
-    })
+    // function Scroll(){
+    //   console.log(goodsBegin.current.getBoundingClientRect().top)
+    // }
+    // goodsBegin.current.addEventListener('touchmove',Scroll)
   },[])
   let scrollToAnchor = (anchorName) => {
     if (anchorName) {
-        // 找到锚点
-        let anchorElement = document.getElementById(anchorName);
-        console.log(anchorElement.scrollTop,'--------')
-        console.log(anchorElement.getClientRects()[0].y,'--------')
-        window.scrollTo(0,anchorElement.scrollTop)
-        // 如果对应id的锚点存在，就跳转到锚点
-        // if(anchorElement) { anchorElement.scrollIntoView({block: 'start', behavior: 'smooth'}); }
+        window.scrollTo({
+          top: anchorName.current.offsetTop-20,
+          behavior: 'smooth'
+        });
     }
 }
   return (
-   <div>
+   <div className='bigwrap'>
+     <div className="wrap"></div>
       <Header />
    <div className='toscroll'> 
-   <div className='content'>
+   <div className='content' ref={goodsBegin}>
      <div className="nav">
-       <div className={`goods nav-bar ${isSelected===1?'selected':''}`} onTouchStart={()=>{setSelected(isSelected=1); scrollToAnchor('abc')}}>商品</div>
-       <div className={`details nav-bar ${isSelected===2?'selected':''}`} onTouchStart={()=>  {setSelected(isSelected=2); scrollToAnchor('abc')}}>详情</div>
-       <div className={`recommend nav-bar ${isSelected===3?'selected':''}`} onTouchStart={()=>setSelected(isSelected=3)}>推荐</div>
+       <div className={`goods nav-bar ${isSelected===1?'selected':''}`} onTouchStart={()=>{setSelected(isSelected=1); scrollToAnchor(goodsBegin)}}>商品</div>
+       <div className={`details nav-bar ${isSelected===2?'selected':''}`} onTouchStart={()=>  {setSelected(isSelected=2); scrollToAnchor(goodsDetail)}}>详情</div>
+       <div className={`recommend nav-bar ${isSelected===3?'selected':''}`} onTouchStart={()=>{setSelected(isSelected=3);scrollToAnchor(goodsRecommend)}}>推荐</div>
      </div>
       <div className="swiper-container" >
        <div className="swiper-wrapper" >
@@ -86,7 +62,7 @@ function Detail() {
        </div>
        <div className="swiper-pagination"></div>
    </div>
-   <div className="center-price" ref={swiper}>
+   <div className="center-price" >
    <div className="price-wrap">
      ￥<span className='price'>149.00</span>/台起
    </div>
@@ -121,18 +97,18 @@ function Detail() {
        <div className='adress-item-logo'><img src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
      </div>
    </div>
-   <div className="detail"  >
-     <div className="detail-header">
-     <div className="detail-header-text" id='abc' >详情</div>
+   <div className="detail" id='abc' ref={goodsDetail}>
+     <div className="detail-header"  >
+     <div className="detail-header-text"   >详情</div>
        <div className="detail-header-line"></div>
      </div>
-     <div className="detail-img-wrap">
+     <div className="detail-img-wrap" >
         <img className='detail-img' src={require("../../../assets/images/home/serve/recommend/re1.jpg")} alt=""/>
         <img className='detail-img' src={require("../../../assets/images/home/serve/recommend/re2.jpg")} alt=""/>
         <img className='detail-img' src={require("../../../assets/images/home/serve/recommend/re3.jpg")} alt=""/>
       </div>
    </div>
-   <div className="recommends">
+   <div className="recommends" ref={goodsRecommend}>
    <div className="detail-header">
      <div className="detail-header-text">推荐</div>
        <div className="detail-header-line"></div>
@@ -163,6 +139,36 @@ function Detail() {
       </div>
     </div>
 
+  </div>
+  <div className="standards-wrap">
+    <div className="standards-header">
+      <div className="standards-header-title">请选择服务规格</div>
+      <div className="standards-header-logo">
+        <img className='standards-header-pic' src={require('../../../assets/images/common/cancel.png')} alt=""/>
+      </div>
+    </div>
+    <div className="standards-body-wrap">
+      <p>清洗数量</p>
+      <ul>
+        {standardsData.map((item,i)=>{
+         return <li key={i}>
+          <img src={require('../../../assets/images/common/cancel.png')} alt="" className="standards-body-left-logo"/>
+          <div className="standards-content">
+          <h4>{item.title}</h4>
+          <p>{item.price}</p>
+          </div>
+          <div className="standards-count-wrap">
+            <div><img className='standards-minus' src={require('../../../assets/images/common/minus.png')} alt=""/></div>
+            <p className="standards-count">0</p>
+            <div><img className='standards-add' src={require('../../../assets/images/common/add.png')} alt=""/></div>
+          </div>
+        </li>
+        })}
+      </ul>
+    </div>
+    <div className="standards-bottom-wrap">
+        <input type="button" className="standards-button" value='确定'/>
+    </div>
   </div>
    </div>
   )
