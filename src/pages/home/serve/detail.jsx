@@ -5,15 +5,32 @@ import '../../../assets/css/home/serve/detail.css'
 import Header from '../../../components/header/header'
 import datas from './detail.json'
 import { useRef } from 'react';
+import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 let standardsData = [
   {title:'油烟机免拆洗',
-   price:'￥149/台'},
+   price:'￥149/台',
+   count:0,
+  },
   {title:'油烟机拆洗',
-   price:'￥180/台'},
+   price:'￥180/台',
+   count:0,},
   {title:'油烟机+灶台拆洗',
-   price:'￥220/台'},
+   price:'￥220/台',
+   count:0,},
 ]
-function Detail() {
+let headerData = {
+  title:'油烟机清洗',
+  share: 1
+}
+let adressData = JSON.parse(localStorage.getItem('adressData')) || []
+
+function Detail(props) {
+  // console.log(props.state)
+  // console.log(adressData)
+  let {adress,number,name,tel} = adressData
+  let [countdata,setcountdata] = useState(standardsData)
+ console.log(countdata)
   // 是否选择伪类
   let [isSelected,setSelected] = useState(1)
   // 三个锚链接
@@ -21,6 +38,8 @@ function Detail() {
   let goodsDetail = useRef(null)
   let goodsRecommend = useRef(null)
 
+  let [standards_wrap,setStandards_wrap]=useState(0)
+  let [navShow,setnavShow] = useState(0)
   // swiper 必备
   useEffect(()=>{
    let s =  new Swiper('.swiper-container', {
@@ -28,10 +47,27 @@ function Detail() {
       pagination: '.swiper-pagination',
       loop : true,
     })
-    // function Scroll(){
-    //   console.log(goodsBegin.current.getBoundingClientRect().top)
-    // }
-    // goodsBegin.current.addEventListener('touchmove',Scroll)
+    
+    function Scroll(){
+      // console.log(goodsBegin.current.getBoundingClientRect().top)
+     
+      if(goodsBegin.current){
+        goodsBegin.current.getBoundingClientRect().top<42?setnavShow(navShow=1):setnavShow(navShow=0)
+      let detailTop = goodsBegin.current.getBoundingClientRect().top
+      if(detailTop>-551){
+        setSelected(isSelected=1)
+      }
+      else if(detailTop> -1970){
+        setSelected(isSelected=2)
+      }
+      else{
+        setSelected(isSelected=3)
+      }
+      }
+      
+    }
+    // 监听滚动，如果有滚动，则隐藏nav
+    window.addEventListener('scroll',Scroll)
   },[])
   let scrollToAnchor = (anchorName) => {
     if (anchorName) {
@@ -41,16 +77,25 @@ function Detail() {
         });
     }
 }
+let handleShow = () =>{
+setStandards_wrap(standards_wrap=1)
+}
+let handleHidden = () => {
+  setStandards_wrap(standards_wrap=0)
+}
   return (
+  
    <div className='bigwrap'>
-     <div className="wrap"></div>
-      <Header />
+
+     <div className={standards_wrap===1?'wrap':''} onClick={handleHidden}></div>
+      <Header headerData={headerData}/>
    <div className='toscroll'> 
-   <div className='content' ref={goodsBegin}>
-     <div className="nav">
-       <div className={`goods nav-bar ${isSelected===1?'selected':''}`} onTouchStart={()=>{setSelected(isSelected=1); scrollToAnchor(goodsBegin)}}>商品</div>
-       <div className={`details nav-bar ${isSelected===2?'selected':''}`} onTouchStart={()=>  {setSelected(isSelected=2); scrollToAnchor(goodsDetail)}}>详情</div>
-       <div className={`recommend nav-bar ${isSelected===3?'selected':''}`} onTouchStart={()=>{setSelected(isSelected=3);scrollToAnchor(goodsRecommend)}}>推荐</div>
+   <div className='contents' ref={goodsBegin}>
+     <div className={navShow===1?'nav':'nav-hidden'}>
+       {/* setSelected(isSelected=3); */}
+       <div className={`goods nav-bar ${isSelected===1?'selected':''}`} onTouchStart={()=>{ scrollToAnchor(goodsBegin)}}>商品</div>
+       <div className={`details nav-bar ${isSelected===2?'selected':''}`} onTouchStart={()=>  {scrollToAnchor(goodsDetail)}}>详情</div>
+       <div className={`recommend nav-bar ${isSelected===3?'selected':''}`} onTouchStart={()=>{scrollToAnchor(goodsRecommend)}}>推荐</div>
      </div>
       <div className="swiper-container" >
        <div className="swiper-wrapper" >
@@ -82,18 +127,24 @@ function Detail() {
    </div>
    <div className="adress-wrap">
      <div className="adress-item">
+       
        <div className='adress-item-title'>地址</div>
-       <div className='adress-item-input-wrap'><input type="text" placeholder='请选择服务地址' className='adress-item-input' /></div>
+       <Link to='/user/newadress' style={{textDecoration:'none', color:'#000'}} className="linkToNewAdress">
+       {adress===''?<input type="text" placeholder='请选择服务地址' className='adress-item-input' value={props.state.name} readOnly />
+      :<div style={{fontSize:'12px'}}><span>{adress}</span>&nbsp;<span>{number}</span><br/>
+      <span>{name}</span>&nbsp;<span>{tel}</span></div>}
+       </Link>
        <div className='adress-item-logo'><img src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
+       
      </div>
-     <div className="adress-item">
+     <div className="adress-item" onClick={handleShow}>
        <div className='adress-item-title'>规格</div>
-       <div className='adress-item-input-wrap'><input type="text" placeholder='请选择服务规格' className='adress-item-input' /></div>
+       <div className='adress-item-input-wrap'><input type="text" placeholder='请选择服务规格' className='adress-item-input'  readOnly/></div>
        <div className='adress-item-logo'><img src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
      </div>
      <div className="adress-item">
        <div className='adress-item-title'>时间</div>
-       <div className='adress-item-input-wrap'><input type="text" placeholder='请选择服务时间' className='adress-item-input' /></div>
+       <div className='adress-item-input-wrap'><input type="text" placeholder='请选择服务时间' className='adress-item-input' readOnly /></div>
        <div className='adress-item-logo'><img src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
      </div>
    </div>
@@ -115,6 +166,7 @@ function Detail() {
      </div>
     <div className="recommends-content">
       <ul className='recommends-item-wrap'>
+        {/* 弹出框 */}
         {datas.map((item,i)=>{
         return (<li className='recommends-item' key={i}>
         <img className='recommends-item-img' src={require('../../../assets/images/home/serve/recommend/wash3.jpg')} alt=""/>
@@ -140,10 +192,10 @@ function Detail() {
     </div>
 
   </div>
-  <div className="standards-wrap">
+  <div className={`standards-wrap ${standards_wrap===1?'standards-wrap-add':''}`} >
     <div className="standards-header">
       <div className="standards-header-title">请选择服务规格</div>
-      <div className="standards-header-logo">
+      <div className="standards-header-logo" onClick={handleHidden}>
         <img className='standards-header-pic' src={require('../../../assets/images/common/cancel.png')} alt=""/>
       </div>
     </div>
@@ -158,8 +210,16 @@ function Detail() {
           <p>{item.price}</p>
           </div>
           <div className="standards-count-wrap">
-            <div><img className='standards-minus' src={require('../../../assets/images/common/minus.png')} alt=""/></div>
-            <p className="standards-count">0</p>
+            <div onClick={(e)=>{
+              // setcountdata(countdata[i].count--)
+              let state = {
+                ...countdata
+              }
+              state[i].count--
+              setcountdata(state)
+              // console.log(countdata[i])
+            }}><img className='standards-minus' src={require('../../../assets/images/common/minus.png')} alt=""/></div>
+            <p className="standards-count">{countdata[i].count}</p>
             <div><img className='standards-add' src={require('../../../assets/images/common/add.png')} alt=""/></div>
           </div>
         </li>
@@ -174,4 +234,8 @@ function Detail() {
   )
 }
 
-export default Detail
+export default connect(state => {
+  return {
+      state:state.ad
+  }
+})(Detail);
