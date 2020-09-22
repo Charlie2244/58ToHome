@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import '../../../assets/css/user/myOrder/myorder.css';
 import { HashRouter as Router, Route, Switch, NavLink, Redirect, Link } from 'react-router-dom';
 import Allorder from './allorder';

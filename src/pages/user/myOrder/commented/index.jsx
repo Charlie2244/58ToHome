@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import OrderNull from '../../../../assets/images/user/orderNull.png';
 
 export default function Commented(){

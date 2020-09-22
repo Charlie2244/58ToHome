@@ -26,9 +26,10 @@ let headerData = {
 }
 
 function Detail(props) {
+  // console.log(props.match.params.id)
   let allAdressData = JSON.parse(localStorage.getItem('allAdressData')) || []
   let adressData = JSON.parse(localStorage.getItem('adressData')) || []
-  console.log(allAdressData,'33333333333333333')
+  // console.log(allAdressData,'33333333333333333')
   let {adress,number,name,tel} = adressData
   let [countdata,setcountdata] = useState(standardsData)
   // let {detaildata} = props
@@ -40,14 +41,12 @@ function Detail(props) {
     // console.log(countdata,'1111111111111')
     if(sumCount>0){
       localStorage.setItem('sumCount',JSON.stringify(countdata.filter((item)=>{
-        console.log(item)
         return item.count!==0
       })))
     }
     let countdatas = JSON.parse(localStorage.getItem('sumCount'))
-      console.log(countdatas,'2222222222')
       props.dispatch(action.detail.addDetailInfo(countdatas))
-    
+    // eslint-disable-next-line
   }, [countdata]) 
 //  console.log(countdata)
   // 是否选择伪类
@@ -61,23 +60,23 @@ function Detail(props) {
   let [serveInfoshow,setServeInfoshow] = useState(0)
   // swiper 必备
   useEffect(()=>{
-   let s =  new Swiper('.swiper-container', {
+   new Swiper('.swiper-container', {
       autoplay:1000,
       pagination: '.swiper-pagination',
       loop : true,
     })
     function Scroll(){
       if(goodsBegin.current){
-        goodsBegin.current.getBoundingClientRect().top<42?setnavShow(navShow=1):setnavShow(navShow=0)
+        goodsBegin.current.getBoundingClientRect().top<42?setnavShow(1):setnavShow(0)
       let detailTop = goodsBegin.current.getBoundingClientRect().top
       if(detailTop>-551){
-        setSelected(isSelected=1)
+        setSelected(1)
       }
       else if(detailTop> -1970){
-        setSelected(isSelected=2)
+        setSelected(2)
       }
       else{
-        setSelected(isSelected=3)
+        setSelected(3)
       }
       }
     }
@@ -99,10 +98,9 @@ let handleHidden = () => {
   setStandards_wrap(standards_wrap=0)
   setServeInfoshow(serveInfoshow=0)
 }
-var handleServeInfoButton=null
 // 点击立即购买时应该选择展示什么
 let handleSelectToShow =() => {
-  console.log(props.state.adress)
+  // console.log(props.state.adress)
   if(adress===''){
     props.history.push('/user/newadress')
   }
@@ -148,9 +146,9 @@ let SwiperWrap = () =>{
  <p className='title'>油烟机清洗</p>
  <p className='title-func'>深度去油污 140摄氏度高温蒸汽消毒杀菌</p>
  <p className='title-time'>
-   <span className='title-time-item'><img src={require("../../../assets/images/common/right.png")} className="title-right-icon"/>随时预约</span>
-   <span className='title-time-item'><img src={require("../../../assets/images/common/right.png")} className="title-right-icon"/>专业清洗</span>
-   <span className='title-time-item'><img src={require("../../../assets/images/common/right.png")} className="title-right-icon"/>阿姨专业培训</span></p>
+   <span className='title-time-item'><img src={require("../../../assets/images/common/right.png")} alt="" className="title-right-icon"/>随时预约</span>
+   <span className='title-time-item'><img src={require("../../../assets/images/common/right.png")} alt=""className="title-right-icon"/>专业清洗</span>
+   <span className='title-time-item'><img src={require("../../../assets/images/common/right.png")} alt=""className="title-right-icon"/>阿姨专业培训</span></p>
 </div>
 
   </div>)
@@ -167,12 +165,12 @@ let SwiperWrap = () =>{
 let AdressWrap = () =>{
   return (     <div className="adress-item">
   <div className='adress-item-title'>地址</div>
-  <div onClick={()=>{allAdressData.length==0?props.history.push('/user/newadress'):props.history.push('/user/adressList')}} style={{textDecoration:'none', color:'#000'}} className="linkToNewAdress">
+  <div onClick={()=>{allAdressData.length===0?props.history.push('/user/newadress'):props.history.push('/user/adressList')}} style={{textDecoration:'none', color:'#000'}} className="linkToNewAdress">
   {adress===''?<input type="text" placeholder='请选择服务地址' className='adress-item-input' value={props.state.name} readOnly />
  :<div style={{fontSize:'12px'}}><span>{adress}</span>&nbsp;<span>{number}</span><br/>
  <span>{name}</span>&nbsp;<span>{tel}</span></div>}
   </div>
-  <div className='adress-item-logo'><img src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
+  <div className='adress-item-logo'><img alt="" src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
   
 </div>)
 }
@@ -188,7 +186,7 @@ let StandardWrap = () =>{
     })}
 
     </div>
-  <div className='adress-item-logo'><img src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
+  <div className='adress-item-logo'><img alt="" src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
 </div>)
 }
 // 时间
@@ -196,7 +194,7 @@ let TimeWrap = () =>{
   return (   <div className="adress-item">
   <div className='adress-item-title'>时间</div>
   <div className='adress-item-input-wrap'><input type="text" placeholder='请选择服务时间' className='adress-item-input' readOnly /></div>
-  <div className='adress-item-logo'><img src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
+  <div className='adress-item-logo'><img alt="" src={require("../../../assets/images/common/goto.png")} className="adress-img"/></div>
 </div>)
 }
 // 详情页
@@ -207,9 +205,9 @@ let TimeWrap = () =>{
      <div className="detail-header-line"></div>
    </div>
    <div className="detail-img-wrap" >
-      <img className='detail-img' src={require("../../../assets/images/home/serve/recommend/re1.jpg")} alt=""/>
-      <img className='detail-img' src={require("../../../assets/images/home/serve/recommend/re2.jpg")} alt=""/>
-      <img className='detail-img' src={require("../../../assets/images/home/serve/recommend/re3.jpg")} alt=""/>
+      <img className='detail-img'  src={require("../../../assets/images/home/serve/recommend/re1.jpg")} alt=""/>
+      <img className='detail-img'  src={require("../../../assets/images/home/serve/recommend/re2.jpg")} alt=""/>
+      <img className='detail-img'  src={require("../../../assets/images/home/serve/recommend/re3.jpg")} alt=""/>
     </div>
  </div>)
  }
@@ -310,7 +308,7 @@ let BottomWrap = () =>{
      </div>
    <div className='serveInfo-location-adress'><span style={{fontWeight:'550'}}>{adress}</span>&nbsp;<span style={{fontWeight:'550'}}>{number}</span><br/>
    <span style={{fontSize:'14px'}}>{name}</span>&nbsp;<span style={{fontSize:'14px'}}>{tel}</span></div>
-   <div className='serveInfo-go-wrap'><img src={require("../../../assets/images/common/goto.png")} className="serveinfo-icon-go"/></div>
+   <div className='serveInfo-go-wrap'><img alt="" src={require("../../../assets/images/common/goto.png")} className="serveinfo-icon-go"/></div>
    </div>
    </Link>
    <div className="colorful-line">
@@ -331,7 +329,7 @@ let BottomWrap = () =>{
        return <div key={i}>{`${countdata[i].title} (${countdata[i].count}台)`}</div>
       })}</div>
       <div className="serveInfo-right">
-     <img src={require("../../../assets/images/common/goto.png")} className="serveInfo-right-icon"/>
+     <img src={require("../../../assets/images/common/goto.png")} alt="" className="serveInfo-right-icon"/>
       </div>
    </div>
    <div className="reminder">
@@ -351,7 +349,7 @@ let BottomWrap = () =>{
    <div className='bigwrap'>
       {/* 整个页面是否有暗黑色系 */}
      <div className={`${standards_wrap===1 || serveInfoshow===1?'wrap':''}`} onClick={handleHidden}></div>
-      <Header headerData={headerData}/>
+      <Header headerData={headerData} headTitle={props.match.params.id}/>
    <div className='toscroll'> 
    <div className='contents' ref={goodsBegin}>
         {NavWrap()}

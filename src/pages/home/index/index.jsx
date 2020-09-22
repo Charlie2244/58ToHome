@@ -133,11 +133,11 @@ export default function Index(props) {
                         new Array(10).fill(0).map((item, index) => {
                             return (
                                 <div className={Css['item-wrap']} key={index}>
-                                    <div className={Css['item-top']} onClick={goPage('serve/detail')}>
+                                    <div className={Css['item-top']} onClick={goPage('serve/detail/日常保洁')}>
                                         <img src={require("../../../assets/images/home/index/quickNav1.png")} alt="" className={Css['item-img']} />
                                         <p className={Css['item-text']}>日常保洁</p>
                                     </div>
-                                    <div className={Css['item-bottom']} onClick={goPage('serve/detail')}>
+                                    <div className={Css['item-bottom']} onClick={goPage('serve/detail/日常保洁')}>
                                         <img src={require("../../../assets/images/home/index/quickNav1.png")} alt="" className={Css['item-img']} />
                                         <p className={Css['item-text']}>日常保洁</p>
                                     </div>
@@ -153,16 +153,16 @@ export default function Index(props) {
                 </div>
             </div>
             <div className={Css['goods-level-wrap']}>
-                <div className={Css['goods-item']} onClick={goPage('serve/detail')}>
+                <div className={Css['goods-item']} onClick={goPage('serve/detail/新人专享')}>
                     <img src={require("../../../assets/images/home/index/goods1.jpg")} alt="" />
                 </div>
-                <div className={Css['goods-item']} onClick={goPage('serve/detail')}>
+                <div className={Css['goods-item']} onClick={goPage('serve/detail/新人专享')}>
                     <img src={require("../../../assets/images/home/index/goods2.jpg")} alt="" />
                 </div>
-                <div className={Css['goods-item']} onClick={goPage('serve/detail')}>
+                <div className={Css['goods-item']} onClick={goPage('serve/detail/新人专享')}>
                     <img src={require("../../../assets/images/home/index/goods1.jpg")} alt="" />
                 </div>
-                <div className={Css['goods-item']} onClick={goPage('serve/detail')}>
+                <div className={Css['goods-item']} onClick={goPage('serve/detail/新人专享')}>
                     <img src={require("../../../assets/images/home/index/goods2.jpg")} alt="" />
                 </div>
             </div>
@@ -180,7 +180,7 @@ export default function Index(props) {
                     {
                         new Array(5).fill(0).map((item, index) => {
                             return (
-                                <div className={Css['family-list']} onClick={goPage('serve/detail')} key={index}>
+                                <div className={Css['family-list']} onClick={goPage('serve/detail/电脑维修')} key={index}>
                                     <div className={Css['images']}><img src={require("../../../assets/images/home/index/family1.jpg")} alt="" /></div>
                                     <div className={Css['title']}>
                                         电脑维修
@@ -197,33 +197,33 @@ export default function Index(props) {
                     <div className={Css['icon']}>热销榜</div>
                 </div>
                 <div className={Css['discount-goods-wrap']}>
-                    <div className={Css['discount-goods']} onClick={goPage('serve/detail')}>
+                    <div className={Css['discount-goods']} onClick={goPage('serve/detail/优惠专区')}>
                         <img src={require("../../../assets/images/home/index/goods1.jpg")} alt="" />
                     </div>
-                    <div className={Css['discount-goods']} onClick={goPage('serve/detail')}>
+                    <div className={Css['discount-goods']} onClick={goPage('serve/detail/优惠专区')}>
                         <img src={require("../../../assets/images/home/index/goods2.jpg")} alt="" />
                     </div>
-                    <div className={Css['discount-goods']} onClick={goPage('serve/detail')}>
+                    <div className={Css['discount-goods']} onClick={goPage('serve/detail/优惠专区')}>
                         <img src={require("../../../assets/images/home/index/goods1.jpg")} alt="" />
                     </div>
-                    <div className={Css['discount-goods']} onClick={goPage('serve/detail')}>
+                    <div className={Css['discount-goods']} onClick={goPage('serve/detail/优惠专区')}>
                         <img src={require("../../../assets/images/home/index/goods2.jpg")} alt="" />
                     </div>
                 </div>
                 <div className={Css['discount-level-wrap']}>
-                    <div className={Css['discount-level']} onClick={goPage('serve/detail')}>
+                    <div className={Css['discount-level']} onClick={goPage('serve/detail/生活好物')}>
                         <p>生活好物</p>
                         <img src={require("../../../assets/images/home/index/discount1.jpg")} alt="" />
                     </div>
-                    <div className={Css['discount-level']} onClick={goPage('serve/detail')}>
+                    <div className={Css['discount-level']} onClick={goPage('serve/detail/生活好物')}>
                         <p>生活好物</p>
                         <img src={require("../../../assets/images/home/index/discount1.jpg")} alt="" />
                     </div>
-                    <div className={Css['discount-level']} onClick={goPage('serve/detail')}>
+                    <div className={Css['discount-level']} onClick={goPage('serve/detail/生活好物')}>
                         <p>生活好物</p>
                         <img src={require("../../../assets/images/home/index/discount1.jpg")} alt="" />
                     </div>
-                    <div className={Css['discount-level']} onClick={goPage('serve/detail')}>
+                    <div className={Css['discount-level']} onClick={goPage('serve/detail/生活好物')}>
                         <p>生活好物</p>
                         <img src={require("../../../assets/images/home/index/discount1.jpg")} alt="" />
                     </div>
@@ -241,7 +241,7 @@ export default function Index(props) {
                             {
                                 new Array(7).fill(0).map((item,index) => {
                                     return (
-                                        <div className={Css['item-wrap']} key={index} onClick={goPage('serve/detail')}>
+                                        <div className={Css['item-wrap']} key={index} onClick={goPage('serve/detail/手机修理')}>
                                             <img src={require("../../../assets/images/home/index/phone.jpg")} alt="" />
                                             <p>手机修理</p>
                                         </div>

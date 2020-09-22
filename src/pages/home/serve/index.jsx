@@ -106,11 +106,11 @@ export default function Serve() {
                                                         
                                                         <div className="sItemWrapper" key={j}>
                                                             <div className="sItemImg">
-                                                            <Link to="/serve/detail" style={{ textDecoration:'none'}}>
+                                                            <Link to={`/serve/detail/${sItem.itemName}`} style={{ textDecoration:'none'}}>
                                                                 <img src={sItem.itemImg} alt="" />
                                                             </Link>    
                                                             </div>
-                                                            <Link to="/serve/detail" style={{ textDecoration:'none'}}>
+                                                            <Link to={`/serve/detail/${sItem.itemName}`} style={{ textDecoration:'none'}}>
                                                             <span className="sItemName">{sItem.itemName}</span>
                                                             </Link> 
                                                         </div>

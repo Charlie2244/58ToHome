@@ -1,4 +1,4 @@
-import React,{useRef, useState, useEffect} from "react";
+import React,{ useState, useEffect} from "react";
 import { connect } from 'react-redux'
 import Header from "../../../components/header/header";
 import '../../../assets/css/user/adress/adress.css'
@@ -33,17 +33,11 @@ function EditAdress(props) {
   let [adressData,setAdressData] = useState({})
   useEffect(()=>{
     
-    let adressData1 = allAdressData.find((item)=> item.id==id)
-    console.log(adressData1,'abcdefg')
-    setAdressData(adressData=adressData1)
+    let adressData1 = allAdressData.find((item)=> item.id===id)
+    setAdressData(adressData1)
+    // eslint-disable-next-line
     },[])
     const {name,sex,tel,adress,number,label,defaults} = adressData
-  // let telValue = useRef(null)
-  // let adressValue = useRef(null)
-  // useEffect(()=>{
-  //   // adressData.sex = sexValue
-  //   console.log(nameValue,sexValue,telValue,adressValue,numberAdressValue,labelValue,defaultAdress)
-  // },[])
  
   let handleSave = () => {
     let adressData = {
@@ -63,8 +57,8 @@ function EditAdress(props) {
         return;
       }
     }
-    if(adressData.adress!=null){
-     allAdressData= allAdressData.filter((item)=> item.id!=id )
+    if(adressData.adress!==null){
+     allAdressData= allAdressData.filter((item)=> item.id!==id )
      allAdressData.push(adressData)
      console.log(allAdressData,'qqqqqqqqqqqqqqqq')
       localStorage.setItem('adressData',JSON.stringify(adressData))
@@ -76,7 +70,7 @@ function EditAdress(props) {
     window.history.go(-1)
   }
   let handleDelete = ()=>{
-    allAdressData= allAdressData.filter((item)=> item.id!=id )
+    allAdressData= allAdressData.filter((item)=> item.id!==id )
     localStorage.setItem('allAdressData',JSON.stringify(allAdressData))
     window.history.go(-1)
   }

@@ -17,7 +17,7 @@ export default function RouterComponent() {
                     <Suspense fallback={<React.Fragment />}>
                         <Switch>
                             <Route path={config.path + "home"} component={HomeComponent} ></Route>
-                            <Route path='/serve/detail' component={Detail}/>
+                            <Route path='/serve/detail/:id' component={Detail}/>
                             <Route path='/user/newadress' component={newAdress}/>
                             <Route path='/user/adressList' component={AdressList}/>
                             <Route path='/user/editadress/:id' component={EditAdress}/>

@@ -17,7 +17,7 @@ function OrderDetails(props) {
   const [isShow, setIsShow] = useState(false);
   const [msgPrice, setMsgPrice] = useState(props.detail);
   const [aprice, setPrice] = useState(0);
-  let price = 0;
+  let price = useRef(0);
   let msgData = Object.values(props.detail);
   const headerData = {
     title: "空调清洗",
@@ -29,21 +29,16 @@ function OrderDetails(props) {
         ? JSON.parse(localStorage.getItem("msgData"))
         : msgData
     );
-    // console.log(msgData,msgPrice);
-    // console.log(JSON.parse(JSON.stringify(localStorage.getItem('msgData'))));
+   
     for (let i = 0; i < msgData.length; i++) {
-      price += msgData[i].price * msgData[i].count;
+      price.current += msgData[i].price.current * msgData[i].count;
     }
     setPrice(
       localStorage.getItem("price")
         ? JSON.parse(localStorage.getItem("price"))
-        : price
+        : price.current
     );
-    // console.log(price);
-    return () => {
-      // localStorage.removeItem('price')
-      // localStorage.removeItem('msgData')
-    };
+   // eslint-disable-next-line
   }, []);
   const handleOrder = () => {
     if (!isShow) {
@@ -118,15 +113,15 @@ function OrderDetails(props) {
         {msgPrice
           ? Object.values(msgPrice).map((item, index) => {
               return (
-                <p>
+                <div key={index}>
                   <span>
-                    <p key={index}>
+                    <p >
                       <span>{item.count}</span>
                       {item.title}
                     </p>
                   </span>
                   <span>+{aprice}元</span>
-                </p>
+                </div>
               );
             })
           : ""}
